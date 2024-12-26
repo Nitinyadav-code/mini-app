@@ -8,17 +8,22 @@ class DownloadManager {
     }
 
     init() {
-        this.linkInput = document.getElementById('linkInput');
-        this.taskList = document.getElementById('taskList');
-        this.taskStatus = document.getElementById('taskStatus');
-        
-        document.getElementById('youtubeBtn').addEventListener('click', () => 
-            this.startDownload('youtube'));
-        document.getElementById('instagramBtn').addEventListener('click', () => 
-            this.startDownload('instagram'));
+        // Add error handling for GitHub Pages
+        try {
+            this.linkInput = document.getElementById('linkInput');
+            this.taskList = document.getElementById('taskList');
+            this.taskStatus = document.getElementById('taskStatus');
             
-        // Listen for bot responses
-        tg.onEvent('message', (message) => this.handleBotResponse(message));
+            document.getElementById('youtubeBtn').addEventListener('click', () => 
+                this.startDownload('youtube'));
+            document.getElementById('instagramBtn').addEventListener('click', () => 
+                this.startDownload('instagram'));
+                
+            // Listen for bot responses
+            tg.onEvent('message', (message) => this.handleBotResponse(message));
+        } catch (e) {
+            console.error('Initialization error:', e);
+        }
     }
 
     startDownload(platform) {
