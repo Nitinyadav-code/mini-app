@@ -3,8 +3,10 @@
 <head>
     <title>Telegram Mini Task Manager</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src='//niphaumeenses.net/vignette.min.js' data-zone='8702730' data-sdk='show_8702730'></script>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <link rel="stylesheet" href="styles.css">
+
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell;
@@ -55,7 +57,17 @@
             margin-bottom: 16px;
         }
     </style>
-    <base href="https://YOUR_USERNAME.github.io/telegram-downloader-app/">
+    <!-- Add debug script -->
+    <script>
+        function debugWebApp() {
+            if (window.Telegram.WebApp) {
+                console.log('WebApp initialized:', window.Telegram.WebApp);
+                return true;
+            }
+            console.error('WebApp not found');
+            return false;
+        }
+    </script>
 </head>
 <body>
     <div id="app">
@@ -71,17 +83,35 @@
         </div>
         <div class="task-status" id="taskStatus"></div>
     </div>
+    <a href="https://whomeenoaglauns.com/4/8709040">Hello this a bot</a>
     <script src="app.js"></script>
     <script>
-        // Add this script to handle communication with the Telegram bot
         const tg = window.Telegram.WebApp;
+        
+        // Add initialization check
+        if (!tg) {
+            alert('Error: Please open this page through Telegram bot');
+            throw new Error('Telegram WebApp not initialized');
+        }
+
+        // Enable debug mode
+        tg.expand();
+        debugWebApp();
         
         function sendToBot(type, url) {
             const data = {
                 type: type,
                 url: url
             };
-            tg.sendData(JSON.stringify(data));
+            console.log('Attempting to send data:', data);
+            try {
+                tg.ready();  // Ensure WebApp is ready
+                tg.sendData(JSON.stringify(data));
+                console.log('Data sent successfully');
+            } catch (e) {
+                console.error('Send error:', e);
+                alert('Error sending data to bot: ' + e.message);
+            }
         }
 
         document.getElementById('youtubeBtn').addEventListener('click', () => {
@@ -106,5 +136,8 @@
             taskList.innerHTML += `<div class="task-item">${message}</div>`;
         });
     </script>
+    
+   
+        
 </body>
 </html>
